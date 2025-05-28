@@ -1,0 +1,52 @@
+//HomeTopSection
+.hts-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 1vw 2vw 3vw 3vw;
+    align-content: center;
+
+
+    .hts-left {
+        display: flex;
+
+        justify-content: center;
+        align-content: center;
+        margin: auto;
+        width: 60%;
+
+        img {
+            width: 80vw;
+            height: 85vh;
+            object-fit: cover;
+            border-radius: 2vw;
+        }
+    }
+
+    .hts-right {
+        display: flex;
+        flex: 1;
+        position: relative;
+        align-items: center;
+
+        .form-card {
+            width: 45vw;
+            margin-left: -8vw;
+            position: absolute;
+            background: white;
+            border-radius: 2vw;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        }
+    }
+
+    .hts-download {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+}
