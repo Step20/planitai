@@ -1,34 +1,56 @@
 const reviews = [
   {
-    name: "Ali Singh",
+    name: "Ajit Singh",
     tag: "Digital Nomad",
-    text: "Roam Around has been fantastic for me as a solo digital nomad. The instant plans have saved me hours of research.",
+    text: "PlanIt has been fantastic for me as a digital nomad that makes short trips most weekends. I’ve been able to quickly find the best places to visit in new areas. All without having to spend hours on google or reading through tabs of travel blogs.",
+    avatar:
+      "https://images.pexels.com/photos/3930029/pexels-photo-3930029.jpeg?cs=srgb&dl=pexels-yogendras31-3930029.jpg&fm=jpg",
   },
   {
-    name: "Maria López",
-    tag: "Traveler",
-    text: "It brings my trips to life! I love being able to explore cities on my own terms with AI suggestions.",
+    name: "Marta López",
+    tag: "Avid traveller",
+    text: "Traveling relaxes me and brings me joy. I love PlanIt because it helps me get a quick overview of what to expect on my next trip. I still go for some local friends for advice but amazing how much of the work it already does for me.",
+    avatar:
+      "https://media.istockphoto.com/id/1446043855/photo/black-woman-on-road-enjoying-window-view-of-desert-and-traveling-in-jeep-on-holiday-road-trip.jpg?s=612x612&w=0&k=20&c=L9D0ysLsdvfGozIt5MQBFI7QNkIQ8lLZrHc0vPhQ9q8=",
   },
   {
     name: "James Cooper",
     tag: "Backpacker",
-    text: "The itinerary builder is great — it made my trip through Europe seamless. I recommend it to anyone solo backpacking too.",
+    text: "Love how quick and simple this is to use. Have recommended it to all my friends. Will definitely be using it for my next backpacking trip to Bali.",
+    avatar:
+      "https://expertvagabond.com/wp-content/uploads/matthew-karsten-travel-blogger-headshot-1.jpg",
   },
 ];
 
 export default function HomePeopleSection() {
   return (
-    <section className="bg-white py-20 px-6 text-center">
-      <h2 className="text-3xl font-bold mb-10">What people are saying</h2>
+    <section className="bg-white py-30 px-6 text-center">
+      <h2 className="text-4xl font-black mb-12">What people are saying</h2>
       <div className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto">
         {reviews.map((r, idx) => (
           <div
             key={idx}
-            className="border p-6 rounded-xl bg-gray-50 text-left shadow-sm"
+            className="border rounded-xl bg-white p-6 text-left h-110 shadow-md hover:shadow-lg transition"
           >
-            <p className="text-gray-700 mb-4">“{r.text}”</p>
-            <div className="text-sm font-semibold text-gray-800">
-              {r.name} <span className="text-xs text-gray-500">· {r.tag}</span>
+            <div className="flex items-center mb-4">
+              <img
+                src={r.avatar}
+                alt={r.name}
+                className="w-12 h-12 rounded-full mr-3 bg-grey object-cover"
+              />
+              <div>
+                <div className="text-sm font-bold text-gray-900">{r.name}</div>
+                <div className="text-xs text-gray-500">{r.tag}</div>
+              </div>
+            </div>
+            <div className="relative text-gray-700 text-sm">
+              <span className="absolute text-3xl text-gray-300 top-[-10px] left-[-10px]">
+                “
+              </span>
+              <p className="leading-8">{r.text}</p>
+              <span className="absolute text-3xl text-gray-300 bottom-[-10px] right-[-10px]">
+                ”
+              </span>
             </div>
           </div>
         ))}

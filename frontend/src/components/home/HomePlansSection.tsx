@@ -1,6 +1,6 @@
 const plans = [
   {
-    title: "Planit Free",
+    title: "PlanIt Free",
     price: "Free",
     features: [
       "Limited trip generation",
@@ -10,9 +10,10 @@ const plans = [
     ],
     highlight: false,
     action: "Sign Up – Free",
+    subtext: "Learn more about Free Version",
   },
   {
-    title: "Planit Explorer",
+    title: "PlanIt Explorer",
     price: "$20 per year",
     features: [
       "Unlimited trip generation",
@@ -22,9 +23,10 @@ const plans = [
     ],
     highlight: true,
     action: "Explorer Plan",
+    subtext: "Learn more about Explorer Version",
   },
   {
-    title: "Planit Pro",
+    title: "PlanIt Pro",
     price: "$15 per year",
     features: [
       "Unlimited smart trips",
@@ -33,38 +35,50 @@ const plans = [
       "AI-based suggestions",
     ],
     highlight: false,
-    action: "Explorer Plan",
+    action: "Pro Plan",
+    subtext: "Learn more about Pro Version",
   },
 ];
 
 export default function HomePlansSection() {
   return (
-    <section className="py-20 bg-white text-center h-full">
-      <h2 className="text-4xl font-bold mb-10">Pricing Plans</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+    <section className="py-20 bg-white text-center">
+      <h2 className="text-4xl font-black mb-12">Pricing Plans</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
         {plans.map((plan, idx) => (
           <div
             key={idx}
-            className={`rounded-xl border p-6 shadow-md ${
-              plan.highlight ? "bg-black text-white scale-105" : "bg-white"
+            className={`flex flex-col justify-between rounded-2xl border px-8 py-4 h-120 shadow-lg transition transform ${
+              plan.highlight
+                ? "bg-black text-white scale-110 "
+                : "bg-white text-black"
             }`}
           >
-            <h3 className="text-xl font-semibold mb-2">{plan.title}</h3>
-            <p className="text-3xl font-bold mb-4">{plan.price}</p>
-            <ul className="text-left mb-6 space-y-2 text-sm">
-              {plan.features.map((feat, i) => (
-                <li key={i}>✅ {feat}</li>
-              ))}
-            </ul>
-            <button
-              className={`w-full px-4 py-2 font-semibold rounded ${
-                plan.highlight
-                  ? "bg-white text-black"
-                  : "bg-black text-white hover:bg-gray-900"
-              }`}
-            >
-              {plan.action}
-            </button>
+            <div>
+              <h3 className="text-xl font-semibold mb-.5">{plan.title}</h3>
+              <p className="text-3xl font-extrabold mb-1">{plan.price}</p>
+              <hr className="mb-4 opacity-15 mt-4"></hr>
+              <ul className="text-left space-y-3 text-sm mb-8">
+                {plan.features.map((feat, i) => (
+                  <li key={i} className="flex items-center space-x-2">
+                    <span className="text-lg">✔️</span>
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <button
+                className={`w-full py-3 rounded-lg font-semibold transition ${
+                  plan.highlight
+                    ? "bg-white text-black hover:bg-gray-200"
+                    : "bg-black text-white hover:bg-gray-900"
+                }`}
+              >
+                {plan.action}
+              </button>
+              <p className="text-xs mt-2 opacity-70">{plan.subtext}</p>
+            </div>
           </div>
         ))}
       </div>

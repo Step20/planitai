@@ -78,7 +78,7 @@ export default function HomeTopSection() {
               </div>
             </div>
             <button className="mt-6 w-full rounded-md bg-indigo-600 px-3 py-3 text-base text-white shadow-sm hover:bg-indigo-700 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600">
-              Get Started -- Plan your Trip
+              Get Started — Plan your Trip
             </button>
           </form>
         </div>
