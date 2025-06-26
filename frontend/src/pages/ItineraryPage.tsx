@@ -3,6 +3,11 @@ import AccordionDay from "../components/itinerary/AccordionDay";
 import NavBar from "../components/nav/NavBar";
 import HomeFooterSection from "../components/home/HomeFooterSection";
 import { FiEdit } from "react-icons/fi";
+import { IoEllipsisHorizontalCircleOutline } from "react-icons/io5";
+import { FiPhone, FiGlobe, FiMap } from "react-icons/fi";
+import { FaTicketAlt } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import PlacesOfInterestSection from "../components/itinerary/PlacesOfInterestSection";
 
 export default function Itinerary() {
   const [openDay, setOpenDay] = useState<number | null>(null);
@@ -57,9 +62,9 @@ export default function Itinerary() {
   return (
     <>
       <NavBar />
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white ">
         {/* Hero */}
-        <div className="relative h-70 w-[90%] mx-auto rounded-[20px] overflow-hidden">
+        <div className="relative h-70 w-[90%] mx-auto rounded-[20px] overflow-hidden my-3">
           <img
             src="https://cdn.getyourguide.com/img/tour/6e9a6a4ea774e61c9d92a2eb0d3542583b60924429c23fe0a372ef22de4e5236.jpeg/155.jpg"
             alt="Japan"
@@ -80,9 +85,22 @@ export default function Itinerary() {
                 </button>
               </div>
             </div>
-            <button className="absolute top-4 right-6 bg-white px-3 py-1 rounded-full text-sm flex items-center gap-1">
-              <FiEdit /> Edit Trip
-            </button>
+            <div className="absolute top-4 right-6 gap-1 flex">
+              <button
+                className="bg-indigo-600 rounded-full text-white flex font-medium text-xs items-center gap-1 hover:underline transition-all duration-300 ease-in-out overflow-hidden px-1 py-1 w-8 h-8 hover:w-34 group cursor-pointer"
+                style={{ minWidth: "2rem" }}
+              >
+                <span className="flex items-center justify-center w-8 h-8">
+                  <IoEllipsisHorizontalCircleOutline size={22} />
+                </span>
+                <span className=" whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                  More Options
+                </span>
+              </button>
+              <button className="bg-white px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                <FiEdit /> Edit Trip
+              </button>
+            </div>
           </div>
         </div>
 
@@ -99,6 +117,7 @@ export default function Itinerary() {
             />
           ))}
         </div>
+        <PlacesOfInterestSection />
       </div>
       <HomeFooterSection />
     </>

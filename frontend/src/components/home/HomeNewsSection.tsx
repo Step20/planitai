@@ -29,7 +29,7 @@ export default function HomeNewsSection() {
           />
           <button
             type="submit"
-            className="bg-white text-black px-6 border border-white py-3 rounded-r-lg font-bold hover:bg-gray-300"
+            className="bg-white text-black px-6 border border-white py-3 rounded-r-lg font-semibold hover:bg-gray-100"
           >
             Subscribe
           </button>

@@ -23,16 +23,20 @@ export default function HomeFooterSection() {
           </p>
 
           <div className="flex gap-2 mt-4">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-              alt="Google Play"
-              className="h-10"
-            />
-            <img
-              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-              alt="App Store"
-              className="h-10"
-            />
+            <a href="/download">
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="App Store"
+                className="h-10"
+              />
+            </a>
+            <a href="/download">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Google Play"
+                className="h-10"
+              />
+            </a>
           </div>
         </div>
 

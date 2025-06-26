@@ -1,4 +1,4 @@
-import React from "react";
+import { motion } from "motion/react";
 
 const destinations = [
   {
@@ -53,11 +53,16 @@ const destinations = [
 type CardProps = {
   data: (typeof destinations)[0];
   className?: string;
+  index?: number;
 };
 
-function Card({ data, className = "" }: CardProps) {
+function Card({ data, className = "", index }: CardProps) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 1, delay: index * 0.1 }} // Cascade effect
       className={`overflow-hidden flex flex-col ${className} group cursor-pointer`}
     >
       <div className="relative h-full rounded-xl overflow-hidden">
@@ -73,11 +78,21 @@ function Card({ data, className = "" }: CardProps) {
         <h3 className="text-white font-bold text-lg mb-1">{data.title}</h3>
         <p className="text-gray-400 text-sm">{data.desc}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function HomeRatedSection() {
+  const cardConfigs = [
+    { idx: 0, className: "row-span-2 h-[780px]" },
+    { idx: 1, className: "h-[380px]" },
+    { idx: 2, className: "h-[380px]" },
+    { idx: 3, className: "h-[380px]" },
+    { idx: 4, className: "row-span-2 h-[780px]" },
+    { idx: 5, className: "h-[380px]" },
+    { idx: 6, className: "h-[380px]" },
+  ];
+
   return (
     <div className="px-6 py-16 bg-[#101010] h-full w-full">
       <h2 className="text-4xl font-black text-white mb-4">
@@ -93,15 +108,14 @@ export default function HomeRatedSection() {
       </button>
 
       <div className="grid grid-cols-3 gap-4">
-        <Card data={destinations[0]} className="row-span-2 h-[780px]" />
-        {/* 1 - tall */}
-        <Card data={destinations[1]} className="h-[380px]" /> {/* 2 */}
-        <Card data={destinations[2]} className="h-[380px]" /> {/* 3 */}
-        <Card data={destinations[3]} className="h-[380px]" /> {/* 4 */}
-        <Card data={destinations[4]} className="row-span-2 h-[780px]" />
-        {/* 5 - tall */}
-        <Card data={destinations[5]} className="h-[380px]" /> {/* 6 */}
-        <Card data={destinations[6]} className="h-[380px]" /> {/* 7 */}
+        {cardConfigs.map(({ idx, className }, i) => (
+          <Card
+            key={idx}
+            data={destinations[idx]}
+            className={className}
+            index={i}
+          />
+        ))}
       </div>
     </div>
   );

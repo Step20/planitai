@@ -25,7 +25,7 @@ export default function AccordionDay({
   onToggle,
 }: AccordionDayProps) {
   return (
-    <div className="mb-8 border-b pb-10">
+    <div className="mb-8 border-b  pb-10">
       <div
         className={`grid gap-6 ${
           isOpen
@@ -34,11 +34,14 @@ export default function AccordionDay({
         }`}
       >
         {/* Left column: image (spans 2 rows when open) */}
-        <div className={`${isOpen ? "row-span-2" : ""}`}>
+        <div
+          onClick={onToggle}
+          className={`${isOpen ? "row-span-2" : ""} cursor-pointer`}
+        >
           <img
             src="https://cdn.getyourguide.com/img/tour/6e9a6a4ea774e61c9d92a2eb0d3542583b60924429c23fe0a372ef22de4e5236.jpeg/155.jpg"
             alt="Day"
-            className={`rounded-xl shadow-md object-cover ${
+            className={`rounded-xl object-cover ${
               isOpen ? "w-60  h-full max-h-60" : "w-60 h-full max-h-60"
             }`}
           />
@@ -78,20 +81,23 @@ export default function AccordionDay({
 
         {/* Bottom right (sections content) */}
         {isOpen && (
-          <div className="space-y-6">
+          <div className="space-y-6 overflow-y-scroll max-h-130">
             {sections.map((section, i) => (
               <div key={i}>
                 <h3 className="text-lg font-bold mb-2">{section.title}</h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {section.items.map((item, j) => (
                     <div key={j}>
-                      <div className="relative h-40 rounded-xl overflow-hidden shadow-md">
+                      <div className="relative h-40 rounded-xl overflow-hidden shadow-md group">
                         <img
                           src="https://cdn.getyourguide.com/img/tour/6e9a6a4ea774e61c9d92a2eb0d3542583b60924429c23fe0a372ef22de4e5236.jpeg/155.jpg"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover cursor-pointer"
                           alt={item}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent p-3 text-white flex flex-col justify-between"></div>
+                        <div className="absolute p-3 text-white flex flex-col justify-between"></div>
+                        <button className="absolute  cursor-pointer bottom-3 right-3 bg-white text-black text-xs font-semibold px-3 py-1 rounded-full shadow transition-opacity opacity-0 group-hover:opacity-100">
+                          Pick Option
+                        </button>
                       </div>
                       <h4 className="font-semibold text-md mt-1">{item}</h4>
                       <p className="text-xs">
