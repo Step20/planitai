@@ -1,12 +1,11 @@
 import React from "react";
-import NavBar from "../components/nav/NavBar";
+
 import HomeFooterSection from "../components/home/HomeFooterSection";
 import HomeNewsSection from "../components/home/HomeNewsSection";
 
 export default function AboutPage() {
   return (
     <>
-      <NavBar />
       <section className="px-6 pt-20 pb-25 bg-white text-gray-900">
         <div className="max-w-6xl mx-auto">
           {/* Hero Section */}

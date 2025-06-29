@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  FiUser,
-  FiBell,
-  FiCreditCard,
-  FiLogOut,
-  FiUpload,
-} from "react-icons/fi";
-import NavBar from "../components/nav/NavBar";
+import { FiUser, FiBell, FiCreditCard, FiLogOut } from "react-icons/fi";
+
 import { auth } from "../lib/firebase";
 import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
 
@@ -39,6 +33,14 @@ export default function AccountSettingsPage() {
     setForm({ ...form, [e.target.id]: e.target.value });
     setChanged(true);
     setError("");
+
+    if (
+      (e.target.id === "fullname" && e.target.value === user?.displayName) ||
+      (e.target.id === "email" && e.target.value === user?.email) ||
+      (e.target.id === "password" && e.target.value === "")
+    ) {
+      setChanged(false);
+    }
   };
 
   const validateFullName = (name: string) => /\w+\s+\w+/.test(name.trim());
@@ -172,7 +174,7 @@ export default function AccountSettingsPage() {
                 className={`w-full px-4 py-2 rounded-md text-white font-medium flex items-center justify-center gap-2 transition ${
                   changed && !loading
                     ? "bg-indigo-600 hover:bg-indigo-700"
-                    : "bg-gray-400 cursor-not-allowed"
+                    : "bg-indigo-200 cursor-not-allowed"
                 }`}
               >
                 {loading && (
@@ -260,8 +262,6 @@ export default function AccountSettingsPage() {
 
   return (
     <>
-      <NavBar />
-
       <div className="flex flex-col items-center min-h-screen bg-white py-10">
         <div className="flex w-full max-w-6xl  rounded-md overflow-hidden ">
           {/* Sidebar */}

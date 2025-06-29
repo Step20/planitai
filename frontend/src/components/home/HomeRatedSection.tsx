@@ -58,11 +58,7 @@ type CardProps = {
 
 function Card({ data, className = "", index }: CardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 1, delay: index * 0.1 }} // Cascade effect
+    <div
       className={`overflow-hidden flex flex-col ${className} group cursor-pointer`}
     >
       <div className="relative h-full rounded-xl overflow-hidden">
@@ -78,7 +74,7 @@ function Card({ data, className = "", index }: CardProps) {
         <h3 className="text-white font-bold text-lg mb-1">{data.title}</h3>
         <p className="text-gray-400 text-sm">{data.desc}</p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

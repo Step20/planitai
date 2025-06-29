@@ -7,11 +7,12 @@ import {
   ReactNode,
   useCallback,
   useRef,
+  useMemo,
 } from "react";
 import { onAuthStateChanged, type User as FirebaseUser } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../lib/firebase";
-import type { UserType } from "../constant/type";
+import type { UserType } from "../constant/types";
 
 type UserContextType = {
   authUser: FirebaseUser | null;
@@ -36,6 +37,39 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   // Use ref to track if auth listener is already set up
   const authListenerSet = useRef(false);
 
+  // 1. Load cached userData immediately on mount
+  useEffect(() => {
+    const cached = sessionStorage.getItem("userData");
+    if (cached) {
+      setUserData(JSON.parse(cached));
+      setLoading(false); // Don't show loading if we have cached data
+      setInitialLoad(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!authUser) return;
+
+    const docRef = doc(db, "users", authUser.uid);
+
+    // Listen for real-time updates to the user document
+    const unsubscribe = onSnapshot(docRef, (snap) => {
+      if (snap.exists()) {
+        const newUserData = {
+          id: authUser.uid,
+          ...(snap.data() as Omit<UserType, "id">),
+        };
+        setUserData(newUserData);
+        sessionStorage.setItem("userData", JSON.stringify(newUserData));
+      } else {
+        setUserData(null);
+        sessionStorage.removeItem("userData");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [authUser]);
+
   // Memoized function to fetch user data
   const fetchUserData = useCallback(async (firebaseUser: FirebaseUser) => {
     try {
@@ -47,14 +81,17 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
           ...(snap.data() as Omit<UserType, "id">),
         };
         setUserData(newUserData);
+        sessionStorage.setItem("userData", JSON.stringify(newUserData));
         return newUserData;
       } else {
         setUserData(null);
+        sessionStorage.removeItem("userData");
         return null;
       }
     } catch (err) {
       console.error("Error fetching user data", err);
       setUserData(null);
+      sessionStorage.removeItem("userData");
       return null;
     }
   }, []);
@@ -79,21 +116,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       }
 
       if (firebaseUser) {
-        // Only update authUser if it's actually different
-        setAuthUser((prevAuthUser) => {
-          if (prevAuthUser?.uid !== firebaseUser.uid) {
-            return firebaseUser;
-          }
-          return prevAuthUser;
-        });
+        setAuthUser(firebaseUser);
 
         // Only fetch user data if we don't have it or if the user changed
-        if (!userData || userData.id !== firebaseUser.uid) {
+        if (!userData || userData?.id !== firebaseUser.uid) {
           await fetchUserData(firebaseUser);
         }
       } else {
         setAuthUser(null);
         setUserData(null);
+        sessionStorage.removeItem("userData");
       }
 
       if (initialLoad) {
@@ -109,12 +141,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [userData, fetchUserData, initialLoad]);
 
   // Memoize the context value to prevent unnecessary re-renders
-  const contextValue = {
-    authUser,
-    userData,
-    loading,
-    refreshUserData,
-  };
+  const contextValue = useMemo(
+    () => ({
+      authUser,
+      userData,
+      loading,
+      refreshUserData,
+    }),
+    [authUser, userData, loading, refreshUserData]
+  );
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

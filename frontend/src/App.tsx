@@ -13,14 +13,16 @@ import SignUp from "./pages/SignUp";
 import Forgot from "./pages/Forgot";
 import MobilePage from "./pages/MobilePage";
 import AccountSettingsPage from "./pages/AccountSettingsPage";
+import Navbar from "./components/nav/NavBar";
 
 function App() {
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/itinerary" element={<ItineraryPage />} />
+        <Route path="/itinerary/:id" element={<ItineraryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />

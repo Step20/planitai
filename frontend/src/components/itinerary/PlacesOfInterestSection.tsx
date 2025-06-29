@@ -1,5 +1,6 @@
 import { FiGlobe, FiMap } from "react-icons/fi";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import type { PlaceOption } from "../../constant/types";
 
 const places = [
   {
@@ -70,12 +71,12 @@ const places = [
   },
 ];
 
-function PlaceCard({ place }) {
+function PlaceCard({ place }: { place: PlaceOption }) {
   return (
     <div className="bg-white rounded-xl  overflow-hidden shadow-md">
       <div className="relative h-48 group">
         <img
-          src={place.image}
+          src={place?.images[1]}
           alt={place.name}
           className="w-full h-full object-cover"
         />
@@ -84,12 +85,12 @@ function PlaceCard({ place }) {
         </button>
       </div>
       <div className="p-4">
-        <h4 className="font-semibold text-lg">{place.name}</h4>
+        <h4 className="font-semibold text-lg">{place?.name}</h4>
         <p className="text-sm text-gray-600 mb-4">{place.description}</p>
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             <a
-              href={place.website}
+              href={place.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-700 hover:bg-gray-100"
@@ -98,7 +99,7 @@ function PlaceCard({ place }) {
               Website
             </a>
             <a
-              href={place.mapLink}
+              href={place.location}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center border border-gray-300 rounded-full px-3 py-1 text-xs text-gray-700 hover:bg-gray-100"
@@ -109,8 +110,8 @@ function PlaceCard({ place }) {
           </div>
           <div className="flex items-center space-x-1 text-black">
             {Array.from({ length: 5 }, (_, i) => {
-              const isHalf = place.rating - i === 0.5;
-              return i + 1 <= Math.floor(place.rating) ? (
+              const isHalf = place?.rating - i === 0.5;
+              return i + 1 <= Math.floor(place?.rating) ? (
                 <FaStar size={12} key={i} />
               ) : isHalf ? (
                 <FaStarHalfAlt size={12} key={i} />
@@ -123,15 +124,19 @@ function PlaceCard({ place }) {
   );
 }
 
-export default function PlacesOfInterestSection() {
+export default function PlacesOfInterestSection({
+  poi,
+}: {
+  poi: PlaceOption[];
+}) {
   return (
     <section className="mx-20 mt-10 mb-40">
       <h2 className="text-4xl font-black mb-10 text-center">
         Places of Interest
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {places.map((place) => (
-          <PlaceCard key={place.id} place={place} />
+        {poi.map((place, key) => (
+          <PlaceCard key={key} place={place} />
         ))}
       </div>
     </section>

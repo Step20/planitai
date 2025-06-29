@@ -65,14 +65,8 @@ export default function HomePlansSection({ show }: { show: boolean }) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
           {orderedPlans.map((plan, idx) => (
-            <motion.div
+            <div
               key={plan.title}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: plan.highlight ? 1 : 1.3,
-              }}
               className={`flex flex-col justify-between rounded-2xl border px-8 py-4 h-120 shadow-md hover:shadow-lg  transition transform ${
                 plan.highlight
                   ? "bg-black text-white scale-110 "
@@ -104,7 +98,7 @@ export default function HomePlansSection({ show }: { show: boolean }) {
                 </button>
                 <p className="text-xs mt-2 opacity-70">{plan.subtext}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>

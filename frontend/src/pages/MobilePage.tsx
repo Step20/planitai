@@ -1,10 +1,8 @@
 import { RiRoadMapLine } from "react-icons/ri";
-import NavBar from "../components/nav/NavBar";
 
 export default function MobilePage() {
   return (
     <div className="">
-      <NavBar />
       <div className="flex flex-col items-center justify-center h-150  bg-white text-sm">
         <a href="/" className="flex space-x-2 items-center mb-8">
           <RiRoadMapLine size={40} />
